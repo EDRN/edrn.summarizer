@@ -122,6 +122,8 @@ class PublicationJsonGenerator(grok.Adapter):
             identifiers, pubMedIDs = [i[0] for i in group], [i[1] for i in group]
             with contextlib.closing(Entrez.efetch(db='pubmed',retmode='xml',rettype='medline',id=pubMedIDs)) as handle:
                 records = Entrez.read(handle)
+                if 'PubmedArticle' in records:
+                    records = records['PubmedArticle']
                 for i in zip(identifiers, records):
                     identifier, medline = unicode(i[0]), i[1]
                     pubMedID = unicode(medline[u'MedlineCitation'][u'PMID'])

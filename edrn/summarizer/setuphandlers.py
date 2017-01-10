@@ -18,6 +18,7 @@ _organURL = u'https://edrn.jpl.nasa.gov/bmdb/rdf/biomarkerorgans?qastate=all'
 _dmccpublicationURL = u'http://edrn.jpl.nasa.gov/cancerdataexpo/rdf-data/publications/@@rdf'
 _bmdbpublicationURL = u'http://edrn.jpl.nasa.gov/bmdb/rdf/publications'
 _fmproddatasetURL  = u'http://edrn.jpl.nasa.gov/fmprodp3/rdf/dataset?type=ALL&baseUrl=http://edrn.jpl.nasa.gov/ecas/data/dataset'
+_ernequeryURL  = u'http://ginger.fhcrc.org/edrn/erneQuery'
 _dmccprotocolURL = u'http://edrn.jpl.nasa.gov/cancerdataexpo/rdf-data/protocols/@@rdf'
 _dmcccommitteeURL = u'http://edrn.jpl.nasa.gov/cancerdataexpo/rdf-data/committees/@@rdf'
 
@@ -78,7 +79,15 @@ def createDatasetGenerator(context):
         rdfDataSource=_fmproddatasetURL,
         datatype = u'json'
     )
-
+def createSpecimenGenerator(context):
+    return createContentInContainer(
+        context,
+        'edrn.summarizer.specimensummarizergenerator',
+        title=u'Specimen Generator',
+        description=u'Generates json describing the EDRN\'s specimen statistics.',
+        queryDataSource=_ernequeryURL,
+        datatype = u'json'
+    )
 def createBiomarkerGenerator(context):
     return createContentInContainer(
         context,
@@ -122,6 +131,7 @@ def createSummarizerGenerators(context):
     generators['biomarker']         = createBiomarkerGenerator(folder)
     generators['publication']       = createPublicationGenerator(folder)
     generators['dataset']           = createDatasetGenerator(folder)
+    generators['specimen']          = createSpecimenGenerator(folder)
     generators['collaboration']     = createCollaborationGenerator(folder)
     generators['extresources']      = createExtResourceGenerator(folder)
 
@@ -135,6 +145,7 @@ def createSummarizerSources(context, generators):
         ('biomuta', u'Biomuta', u'Source of Summarizer for biomarker mutation statistics in EDRN.'),
         ('publication', u'Publication', u'Source of Summarizer for publication statistics in EDRN.'),
         ('dataset', u'Dataset', u'Source of Summarizer for dataset statistics in EDRN.'),
+        ('specimen', u'Specimen', u'Source of Summarizer for specimen statistics in EDRN.'),
         ('collaboration', u'Collaboration', u'Source of Summarizer for collaboration statistics in EDRN.'),
         ('biomarker', u'Biomarker', u'Source of Summarizer for biomarker statistics in EDRN.'),
         ('extresources', u'External Resources', u'Source of Summarizer for External Resource references in EDRN.')

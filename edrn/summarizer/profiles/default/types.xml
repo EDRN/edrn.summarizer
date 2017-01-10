@@ -12,4 +12,5 @@ RESERVED. U.S. Government Sponsorship acknowledged.
     <object name='edrn.summarizer.collaborationsummarizergenerator' meta_type='Dexterity FTI' />
     <object name='edrn.summarizer.extresourcesummarizergenerator' meta_type='Dexterity FTI' />
     <object name='edrn.summarizer.datasetsummarizergenerator' meta_type='Dexterity FTI' />
+    <object name='edrn.summarizer.specimensummarizergenerator' meta_type='Dexterity FTI' />
 </object>
