@@ -8,6 +8,7 @@ issue tracker at https://oodt.jpl.nasa.gov/jira/browse/CA.
 0.0.6 - TBD
 -----------
 
+* CA-1434
 
 0.0.5 — New content type
 ------------------------
