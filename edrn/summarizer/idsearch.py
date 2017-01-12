@@ -4,6 +4,8 @@ from zope.publisher.interfaces import IPublishTraverse
 from utils import csvToDict
 import pickle, requests, os, urllib, re
 import mygene, json
+from ZODB import FileStorage, DB
+import transaction
 
 class IDSearch(Service):
 
@@ -257,19 +259,39 @@ class IDSearch(Service):
                 newgeneinfo[key]['Items'].append(uriprefix + str(item))
 
         return newgeneinfo
-            
+    def closedb(self):
+        self.connection.close()
+        self.biomarkerdb.close()
+        self.storage.close()
+    def opendb(self):
+        self.storage = FileStorage.FileStorage('biomarkerids.fs')
+        self.biomarkerdb = DB(self.storage)
+        self.connection = self.biomarkerdb.open()
+        self.biomarkerids = self.connection.root()
     def render(self):
         if len(self.params) > 0:
             id = self.params[0]
-            mygeneresults = self.queryMyGene(id)
-            #biomartresults = self.queryBiomart(id)    - disabled because biomart is currently under maintenance
-            tempids = self.packageMyGeneResp(mygeneresults)
-            #bdbresp = self.queryBioDBnet(id)
-            
-            #if len(bdbresp.keys()) > 0:
-            #    tempids = self.replaceBDBwithMyGene(bdbresp, tempids)
-
-            final_ids = self.addLinkAnnotation(tempids)
+            final_ids = None
+            self.opendb()
+            try:
+                if id in self.biomarkerids:
+                    if len(self.biomarkerids[id])> 0:
+                        final_ids = self.biomarkerids[id]
+                if not final_ids:
+                    mygeneresults = self.queryMyGene(id)
+                    tempids = self.packageMyGeneResp(mygeneresults)
+                    #disabled because biomart is currently under maintenance
+                    #biomartresults = self.queryBiomart(id)
+                    #disabled until BioDBnet is updated with the latest alias information
+                    #bdbresp = self.queryBioDBnet(id)
+                    #if len(bdbresp.keys()) > 0:
+                    #    tempids = self.replaceBDBwithMyGene(bdbresp, tempids)
+                    final_ids = self.addLinkAnnotation(tempids)
+                    self.biomarkerids[id] = final_ids
+                    transaction.commit()
+            except:
+                self.closedb()
+            self.closedb()
             return final_ids
 
         else:

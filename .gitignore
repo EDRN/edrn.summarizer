@@ -16,3 +16,5 @@ downloads
 eggs
 parts
 var
+*.fs
+*.fs.*
