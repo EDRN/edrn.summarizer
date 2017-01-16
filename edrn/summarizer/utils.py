@@ -52,7 +52,7 @@ def csvToDict(file, colkey, colval):
     f.close()
   return dict
 
-_biomutaRowSep = re.compile(u'\t')
+_biomutaRowSep = re.compile(u',')
 def splitBiomutaRows(horribleString):
     u'''Split a horrible Biomuta string into rows.  Returns an iterable.'''
     i = _biomutaRowSep.split(horribleString)

@@ -12,7 +12,7 @@ from zope.app.intid.interfaces import IIntIds
 from zope.component import getUtility
 
 _dmccURL = u'https://www.compass.fhcrc.org/edrn_ws/ws_newcompass.asmx?WSDL'
-_biomutaURL = u'https://hive.biochemistry.gwu.edu/tools/biomuta/download.php?file=BioMuta_stat.csv'
+_biomutaURL = u'https://hive.biochemistry.gwu.edu/prd/biomuta/content/BioMuta_stat.csv'
 _biomarkerURL = u'https://edrn.jpl.nasa.gov/bmdb/rdf/biomarkers?qastate=all'
 _organURL = u'https://edrn.jpl.nasa.gov/bmdb/rdf/biomarkerorgans?qastate=all'
 _dmccpublicationURL = u'http://edrn.jpl.nasa.gov/cancerdataexpo/rdf-data/publications/@@rdf'
