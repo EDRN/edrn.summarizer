@@ -5,11 +5,16 @@ What follows is a log of changes from release to release.  Where issue
 identifiers appear, you can find more about them by visiting this project's
 issue tracker at https://oodt.jpl.nasa.gov/jira/browse/CA.
 
-0.0.6 - TBD
------------
+0.0.7 - You are now mutated
+---------------------------
 
 * CA-1434
 * CA-1476
+
+
+0.0.6 - Ignore, bad version
+---------------------------
+
 
 0.0.5 — New content type
 ------------------------
