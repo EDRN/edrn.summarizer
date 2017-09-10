@@ -255,8 +255,13 @@ class IDSearch(Service):
             if key in urlMapping.keys():
                 uriprefix = urlMapping[key]
             for item in geneinfo[key]:
-                newgeneinfo[key]['Labels'].append(str(item))
-                newgeneinfo[key]['Items'].append(uriprefix + str(item))
+                if not isinstance(item, basestring):
+                    for i in item:
+                        newgeneinfo[key]['Labels'].append(str(i))
+                        newgeneinfo[key]['Items'].append(uriprefix + str(i))
+                else:
+                    newgeneinfo[key]['Labels'].append(str(item))
+                    newgeneinfo[key]['Items'].append(uriprefix + str(item))
 
         return newgeneinfo
     def closedb(self):
